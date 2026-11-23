@@ -1,14 +1,5 @@
-# Build the 50-mile spatial proximity network of January 6 defendants.
-#
-# Defendants who share a hometown have identical ties, so the network is stored
-# compactly by location group (names replaced with anonymous IDs):
-#   data/group_sizes.txt      number of defendants in each location group
-#   data/group_adjacency.txt  "i:o1 o2 ..." means group i is within 50 miles of
-#                             groups i+o1, i+o2, ... (each pair listed once)
-# Defendants in the same group are all tied to each other; defendants in two
-# adjacent groups are all tied to each other. This rebuilds the exact edge list.
-suppressPackageStartupMessages(library(igraph))
-
+# Expand the saved linked-location groups as cliques and complete bipartite ties.
+dir.create("output", showWarnings = FALSE)
 sizes <- as.integer(readLines("data/group_sizes.txt")[-1])
 adj   <- readLines("data/group_adjacency.txt")[-1]
 
@@ -26,16 +17,11 @@ between <- do.call(rbind, lapply(adj, function(line) {
 
 edges <- rbind(within, unname(between))
 lab   <- sprintf("P%04d", seq_len(sum(sizes)))
-g <- graph_from_edgelist(cbind(lab[edges[, 1]], lab[edges[, 2]]), directed = FALSE)
-g <- simplify(g)
-
-# Data-quality checks
-stopifnot(vcount(g) == sum(sizes), all(degree(g) > 0))
-cat("Location groups:", length(sizes), "\n")
-cat("Nodes with at least one edge:", vcount(g), "\n")
-cat("Edges:", ecount(g), "\n")
-cat("Note: the paper reports 1,575 defendants; the 52 with no neighbor within\n",
-    "50 miles (isolates) are not in the edge data.\n")
-
-write.csv(as_data_frame(g, "edges"), "output/edge_list.csv", row.names = FALSE)
-saveRDS(g, "output/network.rds")
+edge_table <- data.frame(from = lab[edges[,1]], to = lab[edges[,2]])
+stopifnot(all(edges[,1] != edges[,2]), !anyDuplicated(data.frame(a=pmin(edges[,1],edges[,2]), b=pmax(edges[,1],edges[,2]))),
+          nrow(edges) == 16528L, length(unique(as.vector(edges))) == 1521L)
+write.csv(edge_table, "output/edge_list.csv", row.names = FALSE)
+if (requireNamespace("igraph", quietly = TRUE)) {
+  g <- igraph::graph_from_data_frame(edge_table, directed = FALSE)
+  saveRDS(g, "output/network.rds")
+}

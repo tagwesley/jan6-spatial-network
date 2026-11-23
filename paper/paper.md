@@ -18,7 +18,7 @@ This study tests that assumption. It asks whether geographic availability still 
 
 **Geocoding and network construction.** Each defendant's hometown was assigned coordinates in R, and each defendant was coded as a node. Two defendants share an edge if their hometowns are within 50 miles of each other. The 50-mile threshold reflects the study's assumption: if two people living that close both specifically chose to travel to Washington, D.C., on January 6, their decisions may be connected through personal relationships, shared geographic availability, or another mechanism the network could reveal.
 
-The final dataset contains 1,575 defendants. Of these, 1,523 have at least one neighbor within 50 miles and appear in the edge list; the remaining 52 are isolates. Edges measure spatial proximity, not confirmed acquaintance or coordination.
+The final dataset contains 1,575 defendants. Five records lack usable coordinates. Of the 1,570 geocoded records, 49 have no neighbor within the cutoff. The other 1,521 appear in the edge list. Edges measure spatial proximity, not confirmed acquaintance or coordination.
 
 ## 3. Where defendants came from
 
@@ -28,13 +28,13 @@ Figure 1 plots every geocoded defendant at their hometown. Even before any ties 
 
 ## 4. The proximity network
 
-![Figure 2. Geographic proximity network: defendants connected when their hometowns are within 50 miles. To keep the map readable, 2,000 of the 16,529 ties are randomly sampled.](figures/geographic_proximity_network.png)
+![Figure 2. Geographic proximity network: defendants connected when their hometowns are within 50 miles. To keep the map readable, 2,000 of the 16,528 ties are randomly sampled.](figures/geographic_proximity_network.png)
 
 Figure 2 places each node at its real coordinates and draws a random sample of 2,000 ties, since the full network has more than 16,000. The outline of the country appears from the nodes alone, and the contrast between east and west is clear. In the western United States, defendants form small pockets and sub-networks disconnected from the rest. Moving east toward Washington, D.C., clusters grow larger, denser, and more connected.
 
 ![Figure 3. The same network drawn with a force-directed layout instead of map coordinates. Tight clumps are groups of defendants from the same area.](figures/basic_network.png)
 
-Figure 3 shows the network without the map. Here position comes from the ties themselves: a few large clusters dominate, surrounded by many small, isolated groups. An [interactive version](https://tagwesley.github.io/#network) of the network lets readers explore it directly.
+Figure 3 shows the network without the map. Here position comes from the ties themselves: a few large clusters dominate, surrounded by many small, isolated groups. An [earlier interactive version](https://tagwesley.github.io/#network) of the network lets readers explore it directly.
 
 In the original maps, darker points mark places where several defendants' locations overlap. That darkness shows how many people came from one place; it is not a centrality measure. Centrality is reported separately below.
 
@@ -44,10 +44,10 @@ In the original maps, darker points mark places where several defendants' locati
 
 | Metric | Value |
 | --- | --- |
-| Defendants (nodes) | 1,575 (1,523 with at least one tie) |
-| Ties (edges) | 16,529 |
+| Defendants (nodes) | 1,575 (1,521 with at least one tie) |
+| Ties (edges) | 16,528 |
 | Density | 0.0143 |
-| Number of components | 72 (73 when reproduced in 2026) |
+| Number of components | 72 |
 | Largest component size | 724 |
 | Average path length (largest component) | 12.11 |
 | Diameter (largest component) | 37 |
@@ -63,31 +63,31 @@ Defendants are shown by anonymous ID in this public version. Closeness is comput
 
 | ID | Degree | Betweenness | Closeness | Eigenvector |
 | --- | --- | --- | --- | --- |
-| P0279 | 84 | 24,010 | 0.000165 | 1.000 |
-| P0238 | 81 | 4,580 | 0.000161 | 0.894 |
-| P0239 | 81 | 4,580 | 0.000161 | 0.894 |
-| P0240 | 81 | 4,580 | 0.000161 | 0.894 |
-| P0241 | 81 | 4,580 | 0.000161 | 0.894 |
-| P0242 | 81 | 4,580 | 0.000161 | 0.894 |
-| P0273 | 81 | 1,794 | 0.000159 | 0.993 |
-| P0233 | 80 | 2,410 | 0.000159 | 0.991 |
-| P0234 | 80 | 2,410 | 0.000159 | 0.991 |
-| P0246 | 77 | 955 | 0.000160 | 0.969 |
+| P1208 | 84 | 24,010 | 0.000165 | 1.000 |
+| P0328 | 81 | 4,580 | 0.000161 | 0.894 |
+| P0329 | 81 | 4,580 | 0.000161 | 0.894 |
+| P0330 | 81 | 4,580 | 0.000161 | 0.894 |
+| P0331 | 81 | 4,580 | 0.000161 | 0.894 |
+| P0332 | 81 | 4,580 | 0.000161 | 0.894 |
+| P1138 | 81 | 1,794 | 0.000159 | 0.993 |
+| P0243 | 80 | 2,410 | 0.000159 | 0.991 |
+| P0244 | 80 | 2,410 | 0.000159 | 0.991 |
+| P0492 | 77 | 955 | 0.000160 | 0.969 |
 
 **Top 10 by betweenness**
 
 | ID | Degree | Betweenness | Closeness | Eigenvector |
 | --- | --- | --- | --- | --- |
-| P1305 | 6 | 78,181 | 0.000142 | 0.000 |
-| P1076 | 38 | 62,915 | 0.000156 | 0.415 |
-| P0857 | 6 | 59,337 | 0.000127 | 0.000 |
-| P1479 | 2 | 58,973 | 0.000122 | 0.000 |
-| P1292 | 5 | 58,648 | 0.000117 | 0.000 |
-| P1295 | 13 | 57,555 | 0.000137 | 0.000 |
-| P1080 | 14 | 56,960 | 0.000149 | 0.007 |
-| P0225 | 15 | 51,469 | 0.000125 | 0.000 |
-| P0107 | 21 | 50,121 | 0.000109 | 0.000 |
-| P0782 | 8 | 50,019 | 0.000106 | 0.000 |
+| P1410 | 6 | 78,181 | 0.000142 | 0.000 |
+| P0637 | 38 | 62,915 | 0.000156 | 0.415 |
+| P0889 | 6 | 59,337 | 0.000127 | 0.000 |
+| P0229 | 2 | 58,973 | 0.000122 | 0.000 |
+| P0471 | 5 | 58,648 | 0.000117 | 0.000 |
+| P1346 | 13 | 57,555 | 0.000137 | 0.000 |
+| P1352 | 14 | 56,960 | 0.000149 | 0.007 |
+| P1392 | 15 | 51,469 | 0.000125 | 0.000 |
+| P1507 | 21 | 50,121 | 0.000109 | 0.000 |
+| P1502 | 8 | 50,019 | 0.000106 | 0.000 |
 
 Several of the top-degree defendants share identical scores because they come from the same town and therefore have exactly the same neighbors.
 
@@ -97,7 +97,7 @@ The network is sparse but highly clustered. Overall density is 0.0143: most defe
 
 High clustering (global 0.797; average local 0.818) shows strong triadic closure: defendants tend to cluster with others nearby, forming tight geographic groups. An average path length of 12.11 and a diameter of 37 in the largest component indicate long chains of regional clusters rather than a compact national core.
 
-Two kinds of central actor appear. The highest-degree defendants, led by P0279 (degree 84, eigenvector 1.0), sit inside the densest cluster, a geographic hub in the Mid-Atlantic with many nearby defendants. The highest-betweenness defendants are different: several have only two to six ties but lie on the only paths between regional clusters, so they act as bridges between otherwise separate pockets. At the other extreme, 63 defendants have exactly one tie, and 52 have none. Because edges are geographic, these measures describe where people lived relative to one another, not their influence or role on January 6.
+Two kinds of central actor appear. The highest-degree defendants, led by P1208 (degree 84, eigenvector 1.0), sit inside the densest cluster, a geographic hub in the Mid-Atlantic with many nearby defendants. The highest-betweenness defendants are different: several have only two to six ties but lie on the only paths between regional clusters, so they act as bridges between otherwise separate pockets. At the other extreme, 61 defendants have exactly one tie, and 49 geocoded defendants have none. Because edges are geographic, these measures describe where people lived relative to one another, not their influence or role on January 6.
 
 ## 7. Conclusion
 

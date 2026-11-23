@@ -16,4 +16,4 @@ jobs:
         run: Rscript run_all.R
       - name: Check headline numbers
         run: |
-          Rscript -e 'e <- read.csv("output/edge_list.csv"); stopifnot(nrow(e) == 16529); cat("edges OK:", nrow(e), "\n")'
+          Rscript -e 'e <- read.csv("output/edge_list.csv"); stopifnot(nrow(e) == 16528); cat("edges OK:", nrow(e), "\n")'

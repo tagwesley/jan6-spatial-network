@@ -1,4 +1,6 @@
 *.rds
 output/centrality.csv
+output/edge_list.csv
 .Rhistory
 .RData
+output/*.png
